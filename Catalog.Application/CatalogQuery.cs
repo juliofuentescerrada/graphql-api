@@ -21,10 +21,31 @@ namespace Catalog.Application
                 description: "List of all products",
                 resolve: context => mediator.Send(new GetProductList()));
 
+            Field<ProductType>(
+                name: "product",
+                description: "Single product",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "id" }),
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+                    return mediator.Send(new GetProduct { Id = id });
+                });
+
             Field<ListGraphType<BrandType>>(
                 name: "brands",
                 description: "List of all brands",
                 resolve: context => mediator.Send(new GetBrandList()));
+
+            Field<BrandType>(
+                name: "brand",
+                description: "Single brand",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "id" }),
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+                    var result = mediator.Send(new GetBrand { Id = id });
+                    return result;
+                });
         }
     }
 }

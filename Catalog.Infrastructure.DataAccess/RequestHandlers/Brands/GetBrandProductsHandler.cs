@@ -17,11 +17,10 @@ namespace Catalog.Infrastructure.DataAccess.RequestHandlers.Brands
 
         public async Task<IEnumerable<Product>> Handle(GetBrandProducts request, CancellationToken cancellationToken)
         {
-            return await _db.QueryAsync<Product>(@"
-            SELECT P.Id, P.Name, B.Name AS BrandName 
-            FROM Products P JOIN Brands B
-            ON P.BrandId = B.Id
-            WHERE B.Id = @BrandId", new { request.BrandId });
+            return await _db.QueryAsync<Product>(
+                @"SELECT P.Id, P.Name, B.Name AS BrandName 
+                FROM Products P JOIN Brands B ON P.BrandId = B.Id
+                WHERE B.Id = @BrandId", new { request.BrandId });
         }
     }
 }

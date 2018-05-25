@@ -27,11 +27,7 @@ namespace Catalog.Application.Requests
 
         public async Task<ExecutionResult> Handle(GraphQLRequest request, CancellationToken cancellationToken)
         {
-            var executionOptions = new ExecutionOptions { Schema = _schema, Query = request.Query };
-
-            var result = await _documentExecuter.ExecuteAsync(executionOptions).ConfigureAwait(false);
-
-            return result;
+            return await _documentExecuter.ExecuteAsync(new ExecutionOptions { Schema = _schema, Query = request.Query }).ConfigureAwait(false);
         }
     }
 }
