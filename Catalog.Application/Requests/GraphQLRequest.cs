@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Types;
 using MediatR;
+using Newtonsoft.Json.Linq;
 
 namespace Catalog.Application.Requests
 {
@@ -11,7 +12,7 @@ namespace Catalog.Application.Requests
         public string OperationName { get; set; }
         public string NamedQuery { get; set; }
         public string Query { get; set; }
-        public string Variables { get; set; }
+        public JObject Variables { get; set; }
     }
 
     public class GraphQLRequestHandler : IRequestHandler<GraphQLRequest, ExecutionResult>
@@ -27,7 +28,12 @@ namespace Catalog.Application.Requests
 
         public async Task<ExecutionResult> Handle(GraphQLRequest request, CancellationToken cancellationToken)
         {
-            return await _documentExecuter.ExecuteAsync(new ExecutionOptions { Schema = _schema, Query = request.Query }).ConfigureAwait(false);
+            return await _documentExecuter.ExecuteAsync(new ExecutionOptions
+            {
+                Schema = _schema, 
+                Query = request.Query,
+                Inputs = request.Variables.ToInputs()
+            }).ConfigureAwait(false);
         }
     }
 }

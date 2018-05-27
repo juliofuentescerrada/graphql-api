@@ -8,6 +8,7 @@ namespace Catalog.Application
         public CatalogSchema(Func<Type, GraphType> resolveType) : base(resolveType)
         {
             Query = resolveType(typeof(CatalogQuery)) as IObjectGraphType;
+            Mutation = (CatalogMutation)resolveType(typeof (CatalogMutation));
         }
     }
 }

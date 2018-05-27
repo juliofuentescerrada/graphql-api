@@ -2,7 +2,9 @@
 using System.Data.SqlClient;
 using Catalog.Application;
 using Catalog.Application.Requests;
+using Catalog.Domain.Services.Products;
 using Catalog.Infrastructure.DataAccess;
+using Catalog.Infrastructure.DataAccess.Repositories;
 using GraphQL;
 using GraphQL.Types;
 using MediatR;
@@ -30,8 +32,11 @@ namespace Catalog.GraphQL
             services.AddMediatR(typeof(GraphQLRequest).Assembly, typeof(CatalogDbContext).Assembly);
             services.AddMvc();
 
+            services.AddScoped<IProductsRepository, ProductsRepository>();
+
             services.Scan(s => s.FromAssemblyOf<CatalogQuery>().AddClasses(c=>c.AssignableTo(typeof(ObjectGraphType))).AsSelf().WithScopedLifetime());
             services.Scan(s => s.FromAssemblyOf<CatalogQuery>().AddClasses(c => c.AssignableTo(typeof(ObjectGraphType<>))).AsSelf().WithScopedLifetime());
+            services.Scan(s => s.FromAssemblyOf<CatalogQuery>().AddClasses(c=>c.AssignableTo(typeof(InputObjectGraphType))).AsSelf().WithScopedLifetime());
             services.AddScoped<IDocumentExecuter, DocumentExecuter>();
             services.AddScoped<ISchema>(sp => new CatalogSchema(type => sp.GetService(type) as GraphType));
         }

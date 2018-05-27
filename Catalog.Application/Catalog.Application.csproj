@@ -11,4 +11,8 @@
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Catalog.Domain.Services\Catalog.Domain.Services.csproj" />
+  </ItemGroup>
+
 </Project>

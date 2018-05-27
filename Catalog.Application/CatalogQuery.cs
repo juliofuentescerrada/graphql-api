@@ -1,6 +1,6 @@
-﻿using Catalog.Application.Model;
-using Catalog.Application.Requests.Brands;
+﻿using Catalog.Application.Requests.Brands;
 using Catalog.Application.Requests.Products;
+using Catalog.Application.Responses;
 using GraphQL.Types;
 using MediatR;
 

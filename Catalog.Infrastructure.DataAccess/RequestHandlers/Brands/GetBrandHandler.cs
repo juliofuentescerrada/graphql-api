@@ -1,8 +1,8 @@
 ﻿using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
-using Catalog.Application.Model;
 using Catalog.Application.Requests.Brands;
+using Catalog.Application.Responses;
 using Dapper;
 using MediatR;
 

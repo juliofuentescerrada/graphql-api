@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.GraphQL", "Catalog.GraphQL\Catalog.GraphQL.csproj", "{BB5DB59C-A284-4A60-8B94-D71C5CD98077}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.GraphQL", "Catalog.GraphQL\Catalog.GraphQL.csproj", "{BB5DB59C-A284-4A60-8B94-D71C5CD98077}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain.Model", "Catalog.Domain.Model\Catalog.Domain.Model.csproj", "{ADB05734-6F2D-43BA-BE4E-41AD13609978}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Domain.Model", "Catalog.Domain.Model\Catalog.Domain.Model.csproj", "{ADB05734-6F2D-43BA-BE4E-41AD13609978}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure.DataAccess", "Catalog.Infrastructure.DataAccess\Catalog.Infrastructure.DataAccess.csproj", "{A5EEFD6A-E701-4D0E-97FF-DCE6E0B0C5DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Infrastructure.DataAccess", "Catalog.Infrastructure.DataAccess\Catalog.Infrastructure.DataAccess.csproj", "{A5EEFD6A-E701-4D0E-97FF-DCE6E0B0C5DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Domain", "01-Domain", "{E90E63C8-C004-492B-9198-5607ADF04CDA}"
 EndProject
@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-API", "10-API", "{2491D4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Application", "03-Application", "{21E26A3C-3B63-4DAF-881C-630EF6FEA212}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Application", "Catalog.Application\Catalog.Application.csproj", "{AACD0906-96AA-477B-9C6A-5D7F347031EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Application", "Catalog.Application\Catalog.Application.csproj", "{AACD0906-96AA-477B-9C6A-5D7F347031EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain.Services", "Catalog.Domain.Services\Catalog.Domain.Services.csproj", "{D1088864-2D12-4EDF-AE1C-A42C4978C5F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{AACD0906-96AA-477B-9C6A-5D7F347031EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AACD0906-96AA-477B-9C6A-5D7F347031EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AACD0906-96AA-477B-9C6A-5D7F347031EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1088864-2D12-4EDF-AE1C-A42C4978C5F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1088864-2D12-4EDF-AE1C-A42C4978C5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1088864-2D12-4EDF-AE1C-A42C4978C5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1088864-2D12-4EDF-AE1C-A42C4978C5F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{ADB05734-6F2D-43BA-BE4E-41AD13609978} = {E90E63C8-C004-492B-9198-5607ADF04CDA}
 		{A5EEFD6A-E701-4D0E-97FF-DCE6E0B0C5DE} = {83C5E711-24BC-4139-A6D8-B14DDCAD7BDB}
 		{AACD0906-96AA-477B-9C6A-5D7F347031EB} = {21E26A3C-3B63-4DAF-881C-630EF6FEA212}
+		{D1088864-2D12-4EDF-AE1C-A42C4978C5F2} = {E90E63C8-C004-492B-9198-5607ADF04CDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE952E6F-6BA3-4FD4-9155-DD8D7297E91F}

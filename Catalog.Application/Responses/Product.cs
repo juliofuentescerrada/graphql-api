@@ -2,7 +2,7 @@
 using GraphQL.Types;
 using MediatR;
 
-namespace Catalog.Application.Model
+namespace Catalog.Application.Responses
 {
     public class Product
     {

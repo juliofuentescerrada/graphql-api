@@ -1,7 +1,7 @@
 ﻿using System;
 using GraphQL.Types;
 
-namespace Catalog.Application.Model
+namespace Catalog.Application.Responses
 {
     public class Comment
     {
