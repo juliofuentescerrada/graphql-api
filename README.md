@@ -24,3 +24,11 @@ Full Products:
 }
 ```
 
+Add Comment Mutation:
+
+```
+{
+   "query": "mutation ($request:AddCommentInputType!){ addComment(request: $request) { text, author, createdAt } }",
+   "variables": { "request": { "productId": 1, "text": "Text", "author": "Author" } }
+}
+```
