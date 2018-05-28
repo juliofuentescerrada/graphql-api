@@ -4,6 +4,7 @@ namespace Catalog.Application.Responses
 {
     public class Image
     {
+        public int ProductId { get; set; }
         public string Url { get; set; }
     }
 

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Catalog.Application.Requests.Products;
@@ -9,15 +9,17 @@ using MediatR;
 
 namespace Catalog.Infrastructure.DataAccess.RequestHandlers.Products
 {
-    public class GetProductImagesHandler : IRequestHandler<GetProductImages, IEnumerable<Image>>
+    public class GetProductImagesHandler : IRequestHandler<GetProductImages, ILookup<int, Image>>
     {
         private readonly IDbConnection _db;
 
         public GetProductImagesHandler(IDbConnection db) => _db = db;
 
-        public async Task<IEnumerable<Image>> Handle(GetProductImages request, CancellationToken cancellationToken)
+        public async Task<ILookup<int, Image>> Handle(GetProductImages request, CancellationToken cancellationToken)
         {
-            return await _db.QueryAsync<Image>("SELECT Url FROM Images WHERE ProductId = @ProductId", new { request.ProductId });
+            var images = await _db.QueryAsync<Image>("SELECT ProductId, Url FROM Images WHERE ProductId IN @ProductIds", new { request.ProductIds });
+
+            return images.ToLookup(e => e.ProductId);
         }
     }
 }

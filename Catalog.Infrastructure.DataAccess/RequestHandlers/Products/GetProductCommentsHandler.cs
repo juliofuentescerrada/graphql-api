@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Catalog.Application.Requests.Products;
@@ -9,15 +9,17 @@ using MediatR;
 
 namespace Catalog.Infrastructure.DataAccess.RequestHandlers.Products
 {
-    public class GetProductCommentsHandler : IRequestHandler<GetProductComments, IEnumerable<Comment>>
+    public class GetProductCommentsHandler : IRequestHandler<GetProductComments, ILookup<int,Comment>>
     {
         private readonly IDbConnection _db;
 
         public GetProductCommentsHandler(IDbConnection db) => _db = db;
 
-        public async Task<IEnumerable<Comment>> Handle(GetProductComments request, CancellationToken cancellationToken)
+        public async Task<ILookup<int, Comment>> Handle(GetProductComments request, CancellationToken cancellationToken)
         {
-            return await _db.QueryAsync<Comment>("SELECT Text, Author, CreatedAt FROM Comments WHERE ProductId = @ProductId", new { request.ProductId });
+            var comments = await _db.QueryAsync<Comment>("SELECT ProductId, Text, Author, CreatedAt FROM Comments WHERE ProductId IN @ProductIds", new { request.ProductIds });
+
+            return comments.ToLookup(e => e.ProductId);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using Catalog.Application.Requests.Brands;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Catalog.Application.Requests.Brands;
+using GraphQL.DataLoader;
 using GraphQL.Types;
 using MediatR;
 
@@ -12,7 +15,7 @@ namespace Catalog.Application.Responses
 
     public class BrandType : ObjectGraphType<Brand>
     {
-        public BrandType(IMediator mediator)
+        public BrandType(IDataLoaderContextAccessor accessor, IMediator mediator)
         {
             Name = nameof(Brand);
 
@@ -20,10 +23,17 @@ namespace Catalog.Application.Responses
 
             Field(e => e.Name, nullable: true);
 
-            Field<ListGraphType<ProductType>>(
-                name: "products",
-                description: "Brand products",
-                resolve: context => mediator.Send(new GetBrandProducts { BrandId = context.Source.Id }).Result);
+            Field<ListGraphType<ProductType>, IEnumerable<Product>>()
+                .Name("products")
+                .Description("Brand products")
+                .ResolveAsync(context =>
+                {
+                    var loader = accessor.Context.GetOrAddCollectionBatchLoader<int, Product>(
+                        nameof(GetBrandProducts), 
+                        keys => mediator.Send(new GetBrandProducts { BrandIds = keys.ToArray() }));
+
+                    return loader.LoadAsync(context.Source.Id);
+                });
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using GraphQL;
+using GraphQL.Execution;
 using GraphQL.Types;
 using MediatR;
 using Newtonsoft.Json.Linq;
@@ -19,21 +20,26 @@ namespace Catalog.Application.Requests
     {
         private readonly ISchema _schema;
         private readonly IDocumentExecuter _documentExecuter;
+        private readonly IDocumentExecutionListener _listener;
 
-        public GraphQLRequestHandler(ISchema schema, IDocumentExecuter documentExecuter)
+        public GraphQLRequestHandler(ISchema schema, IDocumentExecuter documentExecuter, IDocumentExecutionListener listener)
         {
             _schema = schema;
             _documentExecuter = documentExecuter;
+            _listener = listener;
         }
 
         public async Task<ExecutionResult> Handle(GraphQLRequest request, CancellationToken cancellationToken)
         {
-            return await _documentExecuter.ExecuteAsync(new ExecutionOptions
+            return await _documentExecuter.ExecuteAsync(_ =>
             {
-                Schema = _schema, 
-                Query = request.Query,
-                Inputs = request.Variables.ToInputs()
-            }).ConfigureAwait(false);
+                _.Schema = _schema;
+                _.Query = request.Query;
+                _.Inputs = request.Variables.ToInputs();
+                _.Listeners.Add(_listener);
+                _.ExposeExceptions = true;
+                _.CancellationToken = cancellationToken;
+            });
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Catalog.Application.Responses;
 using MediatR;
 
 namespace Catalog.Application.Requests.Brands
 {
-    public class GetBrandProducts : IRequest<IEnumerable<Product>>
+    public class GetBrandProducts : IRequest<ILookup<int, Product>>
     {
-        public int BrandId { get; set; }
+        public int[] BrandIds { get; set; }
     }
 }
